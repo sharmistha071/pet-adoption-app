@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 
 import Pet from './Pet'
 import List from './List'
 import useBreedList from '../hooks/useBreedList'
+import AdoptedPetContext from '../AdoptedPetContext'
 
 const ANIMALS = ['bird', 'cat', 'dog', 'rabbit']
 
@@ -11,6 +12,7 @@ const SearchBox = ({ setPetList }) => {
   const [animal, setAnimal] = useState('')
   const [breed, setBreed] = useState('')
   const { breedList: breeds } = useBreedList(animal)
+  const [adoptedPet] = useContext(AdoptedPetContext)
 
   useEffect(() => {
     requestPets()
@@ -35,6 +37,11 @@ const SearchBox = ({ setPetList }) => {
           requestPets()
         }}
       >
+        {adoptedPet ? (
+          <div className="pet image-container">
+            <img src={adoptedPet.images[0]} alt={adoptedPet.name} />
+          </div>
+        ) : null}
         <label htmlFor="location">
           Location
           <input
