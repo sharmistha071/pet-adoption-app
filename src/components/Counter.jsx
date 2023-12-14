@@ -17,6 +17,16 @@ const Counter = ({ max, step }) => {
     setCount(0)
   }
 
+  // useEffect(() => {
+  //   let i = 0
+  //   let intervalId = setInterval(() => {
+  //     console.log('hello', i++)
+  //   }, 1000)
+  //   return () => {
+  //     clearInterval(intervalId)
+  //   }
+  // }, [])
+
   return (
     <>
       <p>Counter {count}</p>

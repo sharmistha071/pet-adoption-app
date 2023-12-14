@@ -4,12 +4,13 @@ import SearchBox from './SearchBox'
 import SearchBox2 from './SearchBox2'
 import List from './List'
 import Counter from './Counter'
+import Board from './TicTacToe'
 
 const Home = () => {
   const [petList, setPetList] = useState([])
   return (
     <>
-      <Counter max={20} step={5} />
+      <Board />
       <SearchBox setPetList={setPetList} />
       <List pets={petList} />
     </>
