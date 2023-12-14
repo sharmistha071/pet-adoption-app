@@ -9,7 +9,6 @@ const Home = () => {
   const [petList, setPetList] = useState([])
   return (
     <>
-      <Counter max={20} step={5} />
       <SearchBox setPetList={setPetList} />
       <List pets={petList} />
     </>
