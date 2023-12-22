@@ -12,14 +12,40 @@ const Search = ({ searchText, setSearchText }) => {
 }
 
 const ProductTable = ({ products, filterText }) => {
-  const renderTableRows = () => {
+  // const renderTableRows = () => {
+  //   const filterList = products.filter(
+  //     (item) => item.name.toLowerCase().indexOf(filterText.toLowerCase()) !== -1
+  //   )
+  //   const productsCategoryList = [
+  //     ...new Set(filterList.map((product) => product.category)),
+  //   ]
+  //   return productsCategoryList?.map((category) => {
+  //     return (
+  //       <>
+  //         <h2>{category}</h2>
+  //         {filterList
+  //           .filter((item) => item.category === category)
+  //           .map((item) => (
+  //             <tr>
+  //               <th>{item.name} </th>
+  //               <th>{item.price}</th>
+  //             </tr>
+  //           ))}
+  //       </>
+  //     )
+  //   })
+  // }
+
+  const renderTableRows1 = () => {
+    console.log('products', products, filterText)
     const filterList = products.filter(
       (item) => item.name.toLowerCase().indexOf(filterText.toLowerCase()) !== -1
     )
-    const productsCategoryList = [
-      ...new Set(filterList.map((product) => product.category)),
-    ]
-    return productsCategoryList?.map((category) => {
+    console.log('filterList', filterList)
+    const categoryList = [...new Set(filterList.map((item) => item.category))]
+    console.log('categoryList', categoryList)
+
+    return categoryList.map((category) => {
       return (
         <>
           <h2>{category}</h2>
@@ -27,7 +53,7 @@ const ProductTable = ({ products, filterText }) => {
             .filter((item) => item.category === category)
             .map((item) => (
               <tr>
-                <th>{item.name} </th>
+                <th>{item.name}</th>
                 <th>{item.price}</th>
               </tr>
             ))}
@@ -45,7 +71,7 @@ const ProductTable = ({ products, filterText }) => {
             <th>Price</th>
           </tr>
         </thead>
-        <tbody>{renderTableRows()}</tbody>
+        <tbody>{renderTableRows1()}</tbody>
       </table>
     </>
   )
