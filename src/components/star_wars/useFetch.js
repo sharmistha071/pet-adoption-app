@@ -1,15 +1,11 @@
 import { useState, useEffect } from 'react'
 
-const useFetch = (url, extractCharacters) => {
-  console.log('url', url)
+const useFetch = (url, extractData) => {
   const [response, setResponse] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    const controller = new AbortController()
-    const signal = controller.signal
-
     // fetch(url, { signal })
     //   .then((response) => response.json())
     //   .then((data) => {
@@ -20,19 +16,18 @@ const useFetch = (url, extractCharacters) => {
     //     setLoading(false)
     //     setError(error)
     //   })
+    const controller = new AbortController()
 
     const fetchData = async () => {
       setLoading(true)
       setResponse(null)
       setError(null)
       try {
-        const response = await fetch(url, { signal })
+        const response = await fetch(url, { signal: controller.signal })
         const data = await response.json()
-        console.log('data.......', data, extractCharacters(data))
-        let formattedData = extractCharacters(data)
-
-        setLoading(false)
+        let formattedData = extractData(data)
         setResponse(formattedData)
+        setLoading(false)
       } catch (error) {
         if (error.name === 'AbortError') {
           console.log('Fetch aborted due to component unmount or new request.')

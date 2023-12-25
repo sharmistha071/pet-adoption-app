@@ -4,7 +4,7 @@ const CharacterList = ({ characters = [] }) => {
   return (
     <section className="CharacterList">
       {characters.map((character) => (
-        <Character key={character.id} character={character} />
+        <Character key={character.url} character={character} />
       ))}
     </section>
   )

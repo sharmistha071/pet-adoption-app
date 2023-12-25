@@ -6,11 +6,23 @@ import endpoint from './endpoint'
 import useFetch from './useFetch'
 
 const extractCharacters = (response) => (response && response.results) || []
+const extractPlanets = (response) => (response && response.results) || []
 
 const Application = () => {
   const url = `${endpoint}/people`
+  const planetsUrl = `${endpoint}/planets`
 
-  const { response, loading, error } = useFetch(url, extractCharacters)
+  const {
+    response: characters,
+    loading,
+    error,
+  } = useFetch(url, extractCharacters)
+
+  const {
+    response: planets,
+    loading: loadingPlanets,
+    error: errorPlanets,
+  } = useFetch(planetsUrl, extractPlanets)
 
   return (
     <div>
@@ -25,9 +37,17 @@ const Application = () => {
           {loading ? (
             <p>Loading.....</p>
           ) : (
-            <CharacterList characters={response} />
+            <CharacterList characters={characters} />
           )}
           {error && <p>{error.message}</p>}
+        </section>
+        <section>
+          <h2>Star Wars Planets</h2>
+          {loadingPlanets ? (
+            <p>Fetching Star Wars planets...</p>
+          ) : (
+            <CharacterList characters={planets} />
+          )}
         </section>
       </main>
     </div>
