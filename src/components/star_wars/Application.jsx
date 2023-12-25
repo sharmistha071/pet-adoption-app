@@ -13,14 +13,14 @@ const Application = () => {
   const planetsUrl = `${endpoint}/planets`
 
   const {
-    response: characters,
     loading,
+    results: characters,
     error,
   } = useFetch(url, extractCharacters)
 
   const {
-    response: planets,
     loading: loadingPlanets,
+    results: planets,
     error: errorPlanets,
   } = useFetch(planetsUrl, extractPlanets)
 
