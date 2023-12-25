@@ -9,20 +9,37 @@ const useFetch = (url) => {
   useEffect(() => {
     const controller = new AbortController()
     const signal = controller.signal
-    setLoading(true)
-    setResponse(null)
-    setError(null)
 
-    fetch(url, { signal })
-      .then((response) => response.json())
-      .then((data) => {
+    // fetch(url, { signal })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     setLoading(false)
+    //     setResponse(data)
+    //   })
+    //   .catch((error) => {
+    //     setLoading(false)
+    //     setError(error)
+    //   })
+
+    const fetchData = async () => {
+      setLoading(true)
+      setResponse(null)
+      setError(null)
+      try {
+        const fetchResponse = await fetch(url, { signal })
+        const response = await fetchResponse.json()
         setLoading(false)
-        setResponse(data)
-      })
-      .catch((error) => {
-        setLoading(false)
-        setError(error)
-      })
+        setResponse(response)
+      } catch (error) {
+        if (error.name === 'AbortError') {
+          console.log('Fetch aborted due to component unmount or new request.')
+        } else {
+          setLoading(false)
+          setError(err)
+        }
+      }
+    }
+    fetchData()
 
     // Cleanup function
     return () => {
