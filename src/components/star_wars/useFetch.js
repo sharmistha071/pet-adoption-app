@@ -7,10 +7,13 @@ const useFetch = (url) => {
   const [error, setError] = useState(null)
 
   useEffect(() => {
+    const controller = new AbortController()
+    const signal = controller.signal
     setLoading(true)
     setResponse(null)
     setError(null)
-    fetch(url)
+
+    fetch(url, { signal })
       .then((response) => response.json())
       .then((data) => {
         setLoading(false)
@@ -20,6 +23,12 @@ const useFetch = (url) => {
         setLoading(false)
         setError(error)
       })
+
+    // Cleanup function
+    return () => {
+      console.log('clean up function.....')
+      controller.abort()
+    }
   }, [])
 
   return { response, loading, error }
