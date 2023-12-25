@@ -5,12 +5,12 @@ import CharacterList from './CharacterList'
 import endpoint from './endpoint'
 import useFetch from './useFetch'
 
+const extractCharacters = (response) => (response && response.results) || []
+
 const Application = () => {
   const url = `${endpoint}/people`
 
-  const { response, loading, error } = useFetch(url)
-  console.log('response', response)
-  const characters = (response && response.results) || []
+  const { response, loading, error } = useFetch(url, extractCharacters)
 
   return (
     <div>
@@ -25,7 +25,7 @@ const Application = () => {
           {loading ? (
             <p>Loading.....</p>
           ) : (
-            <CharacterList characters={characters} />
+            <CharacterList characters={response} />
           )}
           {error && <p>{error.message}</p>}
         </section>

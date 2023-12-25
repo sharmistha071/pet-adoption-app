@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-const useFetch = (url) => {
+const useFetch = (url, extractCharacters) => {
   console.log('url', url)
   const [response, setResponse] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -26,16 +26,19 @@ const useFetch = (url) => {
       setResponse(null)
       setError(null)
       try {
-        const fetchResponse = await fetch(url, { signal })
-        const response = await fetchResponse.json()
+        const response = await fetch(url, { signal })
+        const data = await response.json()
+        console.log('data.......', data, extractCharacters(data))
+        let formattedData = extractCharacters(data)
+
         setLoading(false)
-        setResponse(response)
+        setResponse(formattedData)
       } catch (error) {
         if (error.name === 'AbortError') {
           console.log('Fetch aborted due to component unmount or new request.')
         } else {
           setLoading(false)
-          setError(err)
+          setError(error)
         }
       }
     }
@@ -46,7 +49,7 @@ const useFetch = (url) => {
       console.log('clean up function.....')
       controller.abort()
     }
-  }, [])
+  }, [url])
 
   return { response, loading, error }
 }
