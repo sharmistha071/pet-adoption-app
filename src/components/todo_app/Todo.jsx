@@ -10,7 +10,7 @@ const Todo = memo(({ todo, handleToggoleTodo }) => {
         <label></label>
         <input
           type="checkbox"
-          value={todo.completed}
+          checked={todo.completed}
           onChange={(event) => handleToggoleTodo(todo.id)}
         />{' '}
         Completed
