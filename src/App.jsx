@@ -11,7 +11,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import routes from './routes'
 import AdoptedPetContext from './AdoptedPetContext'
-import Application from './components/todo_app/Application'
+import Application from './components/todo_app_context/Application'
 
 const queryClient = new QueryClient({
   defaultOptions: {
