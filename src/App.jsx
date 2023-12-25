@@ -11,8 +11,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import routes from './routes'
 import AdoptedPetContext from './AdoptedPetContext'
-// import Application from './components/todo_app_context/Application'
-import Application from './components/star_wars/Application'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,13 +26,11 @@ const App = () => {
   return (
     <AdoptedPetContext.Provider value={adoptedPet}>
       <QueryClientProvider client={queryClient}>
-        {/* <RouterProvider router={routes}>
+        <RouterProvider router={routes}>
           <Link>
             <h1>Adopt me</h1>
-
           </Link>
-        </RouterProvider> */}
-        <Application />
+        </RouterProvider>
       </QueryClientProvider>
     </AdoptedPetContext.Provider>
   )

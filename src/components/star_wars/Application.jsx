@@ -1,30 +1,16 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+
 import CharacterList from './CharacterList'
 import endpoint from './endpoint'
+import useFetch from './useFetch'
 
 const Application = () => {
-  const [characters, setCharacters] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const url = `${endpoint}/people`
 
-  useEffect(() => {
-    setLoading(true)
-    setCharacters([])
-    setError(null)
-
-    fetch(`${endpoint}/people`)
-      .then((response) => response.json())
-      .then((data) => {
-        setLoading(false)
-        console.log('data', data)
-        setCharacters(data.results)
-      })
-      .catch((error) => {
-        console.log('error', error)
-        setLoading(false)
-        setError(error)
-      })
-  }, [])
+  const { response, loading, error } = useFetch(url)
+  console.log('response', response)
+  const characters = (response && response.results) || []
 
   return (
     <div>
@@ -32,6 +18,9 @@ const Application = () => {
         <h1>Star wars character</h1>
       </header>
       <main>
+        <Link to={`/details/1`} className="pet">
+          <button>Click me</button>
+        </Link>
         <section className="sidebar">
           {loading ? (
             <p>Loading.....</p>
