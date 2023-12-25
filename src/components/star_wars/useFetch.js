@@ -27,14 +27,14 @@ const useFetch = (url, extractData) => {
         const data = await response.json()
         let formattedData = extractData(data)
         setResponse(formattedData)
-        setLoading(false)
       } catch (error) {
         if (error.name === 'AbortError') {
           console.log('Fetch aborted due to component unmount or new request.')
         } else {
-          setLoading(false)
           setError(error)
         }
+      } finally {
+        setLoading(false)
       }
     }
     fetchData()
