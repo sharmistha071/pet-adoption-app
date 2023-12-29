@@ -1,12 +1,6 @@
 import React, { useState } from 'react'
 import { createRoot } from 'react-dom/client'
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Routes,
-  Route,
-  Link,
-} from 'react-router-dom'
+import { RouterProvider, Link } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import routes from './routes'

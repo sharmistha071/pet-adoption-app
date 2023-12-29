@@ -1,10 +1,14 @@
-import Character from './Character'
+import CharacterListItem from './CharacterListItem'
 
 const CharacterList = ({ characters = [] }) => {
   return (
     <section className="CharacterList">
-      {characters.map((character) => (
-        <Character key={character.url} character={character} />
+      {characters.map((character, index) => (
+        <CharacterListItem
+          key={character.url}
+          character={character}
+          id={index + 1}
+        />
       ))}
     </section>
   )
