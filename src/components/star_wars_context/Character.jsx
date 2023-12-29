@@ -5,7 +5,6 @@ import endpoint from './endpoint'
 import useAPI from './useAPI'
 
 const storeInfo = (response) => {
-  console.log('storeInfo', response)
   return (response && response) || {}
 }
 
@@ -13,9 +12,9 @@ const CharacterView = () => {
   const { id } = useParams()
   const url = `${endpoint}/people/${id}/`
 
-  const { state, fetchSingleItem } = useAPI(url, storeInfo)
-
-  const { loading, peoples: characters, singleItem: character, error } = state
+  const { state, fetchSingleItem } = useAPI(url, 'people', storeInfo)
+  const { people } = state
+  const { singleItem: character } = people
 
   useEffect(() => {
     fetchSingleItem()

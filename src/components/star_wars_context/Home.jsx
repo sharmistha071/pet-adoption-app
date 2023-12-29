@@ -14,38 +14,60 @@ const Home = () => {
   const url = `${endpoint}/people`
   const planetsUrl = `${endpoint}/planets`
 
-  const { state, fetchData } = useAPI(url, extractCharacters)
-  const { loading, peoples: characters, error } = state
+  const { state, fetchData } = useAPI(url, 'people', extractCharacters)
 
-  console.log(loading, characters, error)
+  const { people } = state
+  const { loading, items: characters, error } = people
 
-  // const { state: planetState } = useAPI(planetsUrl, extractPlanets)
+  const { state: planetState, fetchData: fetchPlanetData } = useAPI(
+    planetsUrl,
+    'planet',
+    extractPlanets
+  )
+  const { planet } = planetState
+  const { loading: loadingPlanets, items: planets, error: planetError } = planet
 
   useEffect(() => {
     fetchData()
+    fetchPlanetData()
   }, [])
 
   return (
-    <main style={{ display: 'flex', justifyContent: 'space-between' }}>
-      <section className="sidebar">
-        {loading ? (
-          <p>Loading.....</p>
-        ) : (
-          <CharacterList characters={characters} />
-        )}
-        {error && <p>{error.message}</p>}
-      </section>
+    <main
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        flexDirection: 'column',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          flexDirection: 'row',
+        }}
+      >
+        <section className="sidebar">
+          <h2>Star Wars People</h2>
+          {loading ? (
+            <p>Loading.....</p>
+          ) : (
+            <CharacterList characters={characters} />
+          )}
+          {error && <p>{error.message}</p>}
+        </section>
+        <section>
+          <Outlet />
+        </section>
+      </div>
       <section>
-        <Outlet />
-      </section>
-      {/* <section>
         <h2>Star Wars Planets</h2>
         {loadingPlanets ? (
           <p>Fetching Star Wars planets...</p>
         ) : (
           <CharacterList characters={planets} />
         )}
-      </section> */}
+      </section>
     </main>
   )
 }
