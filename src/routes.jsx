@@ -1,8 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom'
 import Home from './components/Home'
-import Application from './components/star_wars_context/Application'
+// import Application from './components/star_wars_context/Application'
 import Details from './components/Details'
 import CharacterView from './components/star_wars_context/Character'
+
+import Application from './components/star_wars_redux/Application'
 
 const routes = createBrowserRouter([
   {
